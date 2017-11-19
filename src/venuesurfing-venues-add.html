@@ -14,7 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="venuesurfing-venues">
+<dom-module id="venuesurfing-venues-add">
   <template>
     <style include="shared-styles">
       :host {
@@ -22,33 +22,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <firebase-query
-      path="/venues"
-      data="{{venuesLive}}">
-    </firebase-query>
+    <template is="dom-if" if="[[user]]">
 
-    <app-indexeddb-mirror
-      key="venues"
-      data="{{venuesLive}}"
-      persisted-data="{{venues}}">
-    </app-indexeddb-mirror>
+      <div class="card">
 
-    <div class="venues">
-      <template is="dom-repeat" items="[[venues]]" as="venue">
-        <div class="card">
-          <h1>{{venue.name}}</h1>
-          <p>{{venue.address.street}}</p>
-        </div>
-      </template>
-    </div>
+        <h1>Add a venue</h1>
+
+        {{user}}
+
+      </div>
+
+    </template>
 
   </template>
 
   <script>
-    class VenuesurfingVenues extends Polymer.Element {
-      static get is() { return 'venuesurfing-venues'; }
+    class VenuesurfingVenuesAdd extends Polymer.Element {
+      static get is() { return 'venuesurfing-venues-add'; }
+
+      signIn() {
+        this.$.auth.signInWithPopup()
+      }
     }
 
-    window.customElements.define(VenuesurfingVenues.is, VenuesurfingVenues);
+    window.customElements.define(VenuesurfingVenuesAdd.is, VenuesurfingVenuesAdd);
   </script>
 </dom-module>
