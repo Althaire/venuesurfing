@@ -1,0 +1,17 @@
+{
+	"venues": [
+		{
+			"name": "Google Munich",
+			"address": {
+				"city": "Munich",
+				"country": "DE",
+				"street": "Erika-Mann-Straße 33"
+			},
+			"accessibility": {
+				"wheelchair": true,
+				"capacity": 250,
+				"name": "Sixth floor"
+			}
+		}
+	]
+}
