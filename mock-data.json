@@ -8,10 +8,12 @@
 				"street": "Erika-Mann-Straße 33"
 			},
 			"accessibility": {
-				"wheelchair": true,
+				"wheelchair": true
+			},
+			"rooms": [{
 				"capacity": 250,
 				"name": "Sixth floor"
-			}
+			}]
 		}
 	]
 }
