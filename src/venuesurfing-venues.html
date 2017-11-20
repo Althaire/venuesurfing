@@ -1,0 +1,85 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymerfire/firebase-query.html">
+<link rel="import" href="shared-styles.html">
+
+<link rel="import" href="venue-room.html">
+
+<dom-module id="venuesurfing-venues">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+      .room-list {
+        overflow: hidden;
+        margin-top: -5px;
+      }
+      .room {
+        float: left;
+        padding: 15px;
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .venues {
+        overflow: hidden;
+      }
+      .card-cover {
+        float: left;
+        width: 50%;
+        margin: -10px;
+      }
+    </style>
+
+    <firebase-query
+      path="/venues"
+      data="{{venuesLive}}">
+    </firebase-query>
+
+    <app-indexeddb-mirror
+      key="venues"
+      data="{{venuesLive}}"
+      persisted-data="{{venues}}">
+    </app-indexeddb-mirror>
+
+    <div class="venues">
+      <template is="dom-repeat" items="[[venues]]" as="venue">
+        <div class="card-cover">
+          <div class="card">
+            <h1>{{venue.name}}</h1>
+            <p>{{venue.address.street}}, {{venue.address.city}}</p>
+
+            <h3>Rooms</h3>
+            <div class="room-list">
+              <template is="dom-repeat" items="[[venue.rooms]]" as="room">
+                <div class="room">
+                  <venue-room name="{{room.name}}" capacity="{{room.capacity}}" image="{{room.image}}"></venue-room>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    class VenuesurfingVenues extends Polymer.Element {
+      static get is() { return 'venuesurfing-venues'; }
+    }
+
+    window.customElements.define(VenuesurfingVenues.is, VenuesurfingVenues);
+  </script>
+</dom-module>
